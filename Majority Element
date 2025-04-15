@@ -1,0 +1,20 @@
+#GeeksForGeeks
+#Given an array arr. Find the majority element in the array. If no majority exists, return -1.
+#Note: A majority element in an array is an element that appears strictly more than (arr.size()/2) times in the array.
+
+Java Code:
+  class Solution {
+    static int majorityElement(int arr[]) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = arr.length;
+
+        for (int num : arr) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+            if (map.get(num) > n / 2) {
+                return num;
+            }
+        }
+        return -1;
+    }
+}
