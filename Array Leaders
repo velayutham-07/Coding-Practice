@@ -1,0 +1,31 @@
+#You are given an array arr of positive integers. 
+#Your task is to find all the leaders in the array.
+#An element is considered a leader if it is greater than or equal to all elements to its right. 
+#The rightmost element is always a leader.
+
+#GeeksForGeeks (Easy)
+
+#Java Code:
+
+class Solution {
+    static ArrayList<Integer> leaders(int arr[]) {
+        // code here
+        if(arr.length == 0) return new ArrayList<>(List.of(-1));
+        ArrayList<Integer> l = new ArrayList<>();
+        Stack<Integer> n = new Stack<>();
+        int h = 0;
+        
+        for(int i = arr.length - 1; i>=0;i--){
+            if(arr[i]>=h){
+                h = arr[i];
+                n.push(h);
+            }
+        }
+        
+        while(!n.isEmpty()){
+            l.add(n.pop());
+        }
+        
+        return l;
+    }
+}
