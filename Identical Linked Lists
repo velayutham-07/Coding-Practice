@@ -1,0 +1,56 @@
+#GeeksforGeeks (Basic)
+
+#Given the two singly Linked Lists respectively. The task is to check whether two linked lists are identical or not. 
+#Two Linked Lists are identical when they have the same data and with the same arrangement too. 
+#If both Linked Lists are identical then return true otherwise return false. 
+
+#Java Code :
+
+
+/*
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data){
+        this.data = data;
+        this.next = null;
+    }
+}*/
+
+class Solution {
+    // Function to check whether two linked lists are identical or not.
+    public boolean areIdentical(Node head1, Node head2) {
+        // write your code here
+        int len1=1,len2=1;
+         Node temp1 = head1;
+          Node temp2 = head2;
+          while(temp1.next!=null)
+          {
+              temp1=temp1.next;
+              len1++;
+          }
+          while(temp2.next!=null)
+          {
+              temp2=temp2.next;
+              len2++;
+          }
+          if(len1!=len2)
+          return false;
+          else
+          {
+          Node temp3 = head1;
+          Node temp4 = head2;
+          while(temp3.next!=null && temp4.next!=null)
+          {
+              if(temp3.data!=temp4.data)
+              return false;
+              temp3=temp3.next;
+              temp4=temp4.next;
+          }
+          if(temp3.data!=temp4.data)
+          return false;
+          }
+          return true;
+    }
+}
