@@ -1,0 +1,20 @@
+# LeetCode 1480
+
+# Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+# Return the running sum of nums.
+
+# Java Code :
+
+  class Solution {
+    public int[] runningSum(int[] nums) {
+        int [] arr = new int [nums.length];
+        int s = 0;
+        int ind =0;
+        for(int i : nums){
+            s+= i;
+            arr[ind] = s;
+            ind++;
+        }
+        return arr;
+    }
+}
