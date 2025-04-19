@@ -1,0 +1,23 @@
+# GeeksforGeeks (Basic)
+# Given two arrays a[] and b[], your task is to determine whether b[] is a subset of a[].
+
+#Java Code :
+
+  class Solution {
+    public boolean isSubset(int a[], int b[]) {
+
+        HashMap<Integer, Integer> freqA = new HashMap<>();
+        
+        for (int num : a) {
+            freqA.put(num, freqA.getOrDefault(num, 0) + 1);
+        }
+
+        for (int num : b) {
+            if (!freqA.containsKey(num) || freqA.get(num) == 0) {
+                return false;
+            } else {
+                freqA.put(num, freqA.get(num) - 1);
+            }
+        } return true;
+    }
+}
