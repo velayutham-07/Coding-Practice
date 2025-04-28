@@ -1,0 +1,22 @@
+# GeeksforGeeks (Easy)
+
+# Given an array arr of N integers, the task is to check whether the frequency of the elements in the array is unique or not. 
+# Or in other words, there are no two distinct numbers in array with equal frequency. 
+# If all the frequency is unique then return true, else return false.
+
+# Java Code :
+
+class Solution {
+    public static boolean isFrequencyUnique(int n, int[] arr) {
+        // code here
+        HashMap<Integer,Integer> h = new HashMap<>();
+        for(int i : arr){
+            h.put(i,h.getOrDefault(i,0)+1);
+        }
+        HashSet<Integer> s = new HashSet<>();
+        for(int i : h.values()){
+            s.add(i);
+        }
+        return (h.size() == s.size());
+    }
+}
