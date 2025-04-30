@@ -1,0 +1,36 @@
+# GeeksforGeeks (Medium)
+
+# Given a string s, your task is to find the length of the smallest window that contains all the characters of the given string at least once.
+
+# Java Code :
+
+class Solution {
+    public int findSubString(String str) {
+        // code here
+        HashSet<Character> h = new HashSet<>();
+        for(char i : str.toCharArray()){
+            h.add(i);
+        }
+        
+        HashMap<Character,Integer> m = new HashMap<>();
+        int i = 0, j =0 , ans = str.length(), n = h.size(), c = 0;
+        
+        while(j<str.length()){
+            m.put(str.charAt(j),m.getOrDefault(str.charAt(j),0) + 1);
+            if(m.get(str.charAt(j)) == 1){
+                c++;
+            }
+            
+            while(c == n){
+                ans = Math.min(ans,j-i+1);
+                m.put(str.charAt(i),m.get(str.charAt(i)) - 1);
+                if(m.get(str.charAt(i)) == 0){
+                    c--;
+                }
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }
+}
