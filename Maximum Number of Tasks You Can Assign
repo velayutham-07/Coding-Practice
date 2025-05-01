@@ -1,4 +1,4 @@
-# LeetCode 2071
+# LeetCode 2071 (Hard)
 
 # You have n tasks and m workers. Each task has a strength requirement stored in a 0-indexed integer array tasks, with the ith task requiring tasks[i] strength to complete. 
 # The strength of each worker is stored in a 0-indexed integer array workers, with the jth worker having workers[j] strength. 
@@ -11,29 +11,71 @@
 # Java Code :
 
 class Solution {
-    boolean flag = false;
     public int maxTaskAssign(int[] tasks, int[] workers, int pills, int strength) {
+
+        int m = tasks.length, n = workers.length;
         Arrays.sort(tasks);
         Arrays.sort(workers);
-        boolean[] used = new boolean[workers.length];
-        int taskptr = 0, count = 0;
-        int pillsUsed = 0;
 
-        for (int i = 0; i < workers.length && taskptr < tasks.length; i++) {
-            if (workers[i] >= tasks[taskptr]) {
-                used[i] = true;
-                count++;
-                taskptr++;
+        int l = 0, r = Math.min(m, n);
+        while(l <= r){
+            int mid = l + r >> 1;
+            if(check(tasks, workers, pills, strength, mid, n - mid))
+                l = mid+1;
+            else
+                r = mid-1;
+        }
+
+        return r;
+    }
+    
+    public boolean check(int[] tasks, int[] workers, int pills, int strength, int mid, int start){
+        
+        int[] que = new int[mid];
+        int write = 0, read = 0; 
+
+        for(int i = 0, j = 0; i < mid; i++){
+            int curStrength  = workers[start + i];
+            if(read == write){
+
+                if(curStrength >= tasks[j]){
+                    j++;
+                    continue;
+                }
+
+                if(pills == 0)
+                    return false;
+                
+                curStrength  += strength;
+                pills--;
+
+                while(j < mid && curStrength >= tasks[j])
+                    que[write++] = tasks[j++];
+                
+                if(read == write)
+                    return false;
+                write--;
+                
+            }else{
+
+                if(curStrength >= que[read]){
+                    read++;
+                    continue;
+                }
+
+                if(pills == 0)
+                    return false;
+                
+                curStrength  += strength;
+                pills--;
+
+                while(j < mid && curStrength >= tasks[j])
+                    que[write++] = tasks[j++];
+                
+                write--;
             }
         }
 
-        for (int i = 0; i < workers.length && taskptr < tasks.length && pillsUsed < pills; i++) {
-            if (!used[i] && workers[i] + strength >= tasks[taskptr]) {
-                used[i] = true;
-                count++;
-                taskptr++;
-                pillsUsed++;
-            }
-        } return count;
+        return read == write;        
     }
 }
