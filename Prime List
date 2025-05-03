@@ -1,0 +1,60 @@
+# GeeksforGeeks (Medium)
+
+# You are given the head of a linked list. 
+# You have to replace all the values of the nodes with the nearest prime number. 
+# If more than one prime number exists at an equal distance, choose the smallest one. 
+# Return the head of the modified linked list.
+
+# Java Code :
+
+class Solution {
+    Node primeList(Node head) {
+        // code here
+        Node temp = head;
+        while(temp != null) {
+            temp.val = getNearPrime(temp.val);
+            temp = temp.next;
+        }
+        
+        return head;
+    }
+    
+    private int getNearPrime(int i) {
+        if(isPrime(i)) {
+            return i;
+        }
+        
+        int left = i - 1, right = i + 1;
+        
+        while(left >= 2 && (!isPrime(left))) {
+            left--;
+        }
+        
+        while(!isPrime(right)) {
+            right++;
+        }
+        
+        if(left < 2) {
+            return right;
+        }
+        
+        if((i - left <= right - i)) {
+            return left;
+        } else {
+            return right;
+        }
+    }
+    
+    private boolean isPrime(int j) {
+        if(j <= 1) {
+            return false;
+        }
+        
+        for(int i = 2; i*i <= j; i++) {
+            if(j % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
