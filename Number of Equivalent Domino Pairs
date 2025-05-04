@@ -1,0 +1,32 @@
+# LeetCode 1128 (Easy)
+
+# Given a list of dominoes, dominoes[i] = [a, b] is equivalent to dominoes[j] = [c, d] if and only if either (a == c and b == d), or (a == d and b == c) - that is, 
+# one domino can be rotated to be equal to another domino.
+
+# Return the number of pairs (i, j) for which 0 <= i < j < dominoes.length, and dominoes[i] is equivalent to dominoes[j].
+
+# Java Code : 
+
+  class Solution {
+    public int numEquivDominoPairs(int[][] dominoes) {
+        HashMap<Integer,List<int[]>> map = new HashMap<>();
+        int res = 0;
+        for(int[] arr : dominoes) {
+            int sum = arr[0] + arr[1];
+            List<int[]> pairs = map.getOrDefault(sum, new ArrayList<int[]>());
+            if(pairs.size() == 0) {
+                pairs.add(arr);
+            } else {
+                for(int[] pair : pairs) {
+                    if((pair[0] == arr[0] && pair[1] == arr[1])
+                    || (pair[0] == arr[1] && pair[1] == arr[0])) {
+                        res++;
+                    }
+                }
+                pairs.add(arr);
+            }
+            map.put(sum, pairs);
+        }
+        return res;
+    }
+}
